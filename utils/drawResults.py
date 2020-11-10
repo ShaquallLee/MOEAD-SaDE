@@ -37,18 +37,21 @@ def draw_box(data, name):
     '''
     plt.figure()
     plt.boxplot(data, notch=False, sym='o', vert=True)
-    # plt.xticks([1,2, 3],['MOEA/D', 'MOEA/D-DE', 'MOEA/D-CoDE'])
+    plt.xticks([1,2, 3,4],['MOEA/D', 'MOEA/D-DE', 'MOEA/D-CoDE', 'MOEA/D-SaDE'])
     plt.title(name)
-    plt.show()
+    plt.savefig('../results/photos/box/{}.png'.format(name))
+    # plt.show()
 
 
 if __name__ == '__main__':
-    # a = [np.array([1,2,3,4,5,6,7]), np.array([3,4,5,6,7,8,9])]
-    # draw_box(a, "name")
-    hvs, igds = read_excel('../results/excels/dtlz4.xls')
-    hvs1, igds1 = read_excel('../results/excels/dtlz4.xls')
-    hvs2, igds2 = read_excel('../results/excels/dtlz4.xls')
+    hvs, igds = read_excel('../results/excels/moead.xls')
+    hvs1, igds1 = read_excel('../results/excels/moeadde.xls')
+    hvs2, igds2 = read_excel('../results/excels/moeadcode.xls')
+    hvs3, igds3 = read_excel('../results/excels/moeadsade.xls')
     for i in range(7):
-        data = [hvs[i],hvs1[i], hvs2[i]]
-        draw_box(data, 'DTLZ{}结果对比箱图'.format(i+1))
+        data = [hvs[i],hvs1[i], hvs2[i], hvs3[i]]
+        draw_box(data, 'DTLZ{} HV results in ten times'.format(i+1))
+
+        data_igd = [igds[i], igds1[i], igds2[i], igds3[i]]
+        draw_box(data_igd, 'DTLZ{} IGD results in ten times'.format(i+1))
 
